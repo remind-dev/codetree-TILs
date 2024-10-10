@@ -1,8 +1,8 @@
 n = int(input())
 
 def re(n):
-    if n == 2:
-        return 1
+    if n == 1:
+        return 0
 
     if n % 2 == 0:
         return re(n // 2) + 1
