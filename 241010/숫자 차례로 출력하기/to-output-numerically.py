@@ -1,13 +1,13 @@
 n = int(input())
 i = 1
-def recursion(n):
-    if n == 8:
+def recursion(i, n):
+    if i == n+1:
         return
 
-    print(n, end=' ')
-    recursion(n+1)
-    if n == 7:
+    print(i, end=' ')
+    recursion(i+1, n)
+    if i == n:
         print()
-    print(n, end=' ')
+    print(i, end=' ')
     
-recursion(i)
+recursion(i, n)
