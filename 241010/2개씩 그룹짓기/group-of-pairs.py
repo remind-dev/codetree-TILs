@@ -3,4 +3,10 @@ arr = list(map(int, input().split()))
 
 arr.sort()
 
-print(arr[n-1] + arr[n])
+group_max = 0
+for i in range(n):
+    group_sum = arr[i] + arr[2*n-1-i]
+    if group_sum > group_max:
+        group_max = group_sum
+
+print(group_max)
