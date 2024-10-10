@@ -9,9 +9,7 @@ def gcd(a, b):
 def lcm(n):
     if n == 0:
         return arr[0]
-    elif n == 1:
-        return arr[1]
     
-    return lcm(n-2) * lcm(n-1) // gcd(lcm(n-2), lcm(n-1))
+    return lcm(n-1) * arr[n] // gcd(lcm(n-1), arr[n])
 
-print(lcm(n))
+print(lcm(n-1))
