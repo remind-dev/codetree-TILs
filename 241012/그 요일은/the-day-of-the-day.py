@@ -15,7 +15,7 @@ diff = cal_day(m2, d2) - cal_day(m1, d1)
 
 day_of_the_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-week_idx = day_of_the_week.index('Sat')
+week_idx = day_of_the_week.index(week)
 
 if diff < week_idx:
     print(0)
