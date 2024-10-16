@@ -1,30 +1,46 @@
-def count_overlapping_areas(n, commands):
-    position = 0  # 현재 위치
-    visited = {}  # 위치별 방문 횟수를 저장할 딕셔너리
+OFFSET = 1000
+MAX_R = 2000
 
-    # 각 명령을 처리
-    for command in commands:
-        x, direction = command.split()
-        x = int(x)
+# 변수 선언 및 입력
+n = int(input())
+segments = []
 
-        # 방향에 따라 이동 (경로의 모든 지점을 기록)
-        if direction == "L":
-            for _ in range(x):
-                position -= 1
-                visited[position] = visited.get(position, 0) + 1
-        elif direction == "R":
-            for _ in range(x):
-                position += 1
-                visited[position] = visited.get(position, 0) + 1
+# 현재 위치
+cur = 0
 
-    # 2번 이상 방문한 위치의 개수 세기
-    result = sum(1 for v in visited.values() if v >= 2)
-    
-    return result
+for _ in range(n):
+	distance, direction = tuple(input().split())
+	distance = int(distance)
+	
+	if direction == 'L':
+		# 왼쪽으로 이동할 경우 : cur - distance ~ cur까지 경로 이동
+		section_left = cur - distance
+		section_right = cur
+		cur -= distance
+	else:
+		# 오른쪽으로 이동할 경우 : cur ~ cur + distance까지 경로 이동
+		section_left = cur
+		section_right = cur + distance
+		cur += distance
+	
+	segments.append([section_left, section_right])
 
-# 입력 받기
-n = int(input())  # 명령의 개수
-commands = [input() for _ in range(n)]  # 명령 리스트
+	
+checked = [0] * (MAX_R + 1)
 
-# 결과 출력
-print(count_overlapping_areas(n, commands))
+for x1, x2 in segments:
+	# OFFSET을 더해줍니다.
+	x1, x2 = x1 + OFFSET, x2 + OFFSET
+	
+	# 구간을 칠해줍니다.
+	# 구간 단위로 진행하는 문제이므로
+	# x2에 등호가 들어가지 않음에 유의합니다.
+	for i in range(x1, x2):
+		checked[i] += 1
+
+# 2번 이상 지나간 영역의 크기를 구합니다.
+cnt = 0
+for elem in checked:
+	if elem >= 2:
+		cnt += 1
+print(cnt)
