@@ -15,4 +15,6 @@ for i in range(n):
         temp = cur
         cnt = 1
 
+arr[cur] = max(cnt, arr[cur])
+
 print(max(arr))
