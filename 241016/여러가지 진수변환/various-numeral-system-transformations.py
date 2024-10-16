@@ -3,7 +3,7 @@ n, b = map(int, input().split())
 arr = []
 
 while True:
-    if n < 4:
+    if n < b:
         arr.append(n)
         break
 
