@@ -12,11 +12,11 @@ ans[p] = 1
 for s, n1, n2 in element:
     if parasite[n1] and not parasite[n2]:
         parasite[n1] -= 1
-        parasite[n2] = p
+        parasite[n2] = k
         ans[n2] = 1
     elif parasite[n2] and not parasite[n1]:
         parasite[n2] -= 1
-        parasite[n1] = p
+        parasite[n1] = k
         ans [n1] = 1
     elif parasite[n1] and parasite[n1]:
         parasite[n1] -= 1
