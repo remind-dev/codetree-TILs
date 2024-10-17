@@ -10,11 +10,11 @@ ans = [0 for _ in range(n+1)]
 ans[p] = 1
 
 for s, n1, n2 in element:
-    if parasite[n1] and not parasite[n2] and ans[n1] and not ans[n2]:
+    if parasite[n1] > 0 and parasite[n2] == 0 and ans[n1] and not ans[n2]:
         parasite[n1] -= 1
         parasite[n2] = k
         ans[n2] = 1
-    elif parasite[n2] and not parasite[n1] and ans[n2] and not ans[n1]:
+    elif parasite[n2] > 0 and parasite[n1] == 0 and ans[n2] and not ans[n1]:
         parasite[n2] -= 1
         parasite[n1] = k
         ans[n1] = 1
