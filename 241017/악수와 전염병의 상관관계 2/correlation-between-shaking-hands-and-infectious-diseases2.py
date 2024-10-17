@@ -18,7 +18,7 @@ for s, n1, n2 in element:
         parasite[n2] -= 1
         parasite[n1] = k
         ans[n1] = 1
-    elif parasite[n1] and parasite[n1] and ans[n1] and ans[n2]:
+    elif ans[n1] and ans[n2]:
         parasite[n1] -= 1
         parasite[n2] -= 1
 
