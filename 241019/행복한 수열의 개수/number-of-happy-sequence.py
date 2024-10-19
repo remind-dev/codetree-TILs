@@ -5,11 +5,10 @@ arr = [list(map(int, input().split())) for _ in range(n)]
 ans = 0
 
 for row in range(n):
-    cnt = 1
+    cnt = 0
     for col in range(n):
         if col == 0:
             temp = arr[row][col]
-            continue
 
         if temp == arr[row][col]:
             cnt += 1
@@ -22,11 +21,10 @@ for row in range(n):
             break
 
 for col in range(n):
-    cnt = 1
+    cnt = 0
     for row in range(n):
         if row == 0:
             temp = arr[row][col]
-            continue
 
         if temp == arr[row][col]:
             cnt += 1
