@@ -22,9 +22,7 @@ for i in range(n):
         for k in range(i, n):
             for l in range(j, m):
                 if pos_rect(i, j, k, l):
-                    if MAX < rect_sum(i, j, k, l):
-                        MAX = rect_sum(i, j, k, l)
-                        ans = (k - i + 1) * (l - j + 1)
+                    ans = max(ans, (k - i + 1) * (l - j + 1))
 
 
 print(ans)
