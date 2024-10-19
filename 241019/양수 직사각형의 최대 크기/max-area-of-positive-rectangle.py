@@ -1,3 +1,5 @@
+import sys
+
 n, m = map(int, input().split())
 grid = [list(map(int, input().split())) for _ in range(n)]
 
@@ -12,7 +14,7 @@ def pos_rect(x1, y1, x2, y2):
 
     return True
 
-MAX = -100000000000000000000000
+MAX = -sys.maxsize
 ans = 0
 
 for i in range(n):
