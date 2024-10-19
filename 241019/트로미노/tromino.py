@@ -10,6 +10,7 @@ ans = 0
 temp_arr = arr
 for _ in range(4):
     temp_arr = rotate_90(temp_arr)
+    n, m = m, n
 
     for i in range(n):
         for j in range(m):
