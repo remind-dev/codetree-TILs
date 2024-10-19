@@ -18,7 +18,7 @@ def find_gold(k, x, y):
 
 
 
-for k in range(0, n):
+for k in range(0, n+1):
     pay = k*k + (k+1)*(k+1)
 
     for x in range(n):
