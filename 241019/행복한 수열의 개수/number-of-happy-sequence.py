@@ -6,8 +6,11 @@ ans = 0
 
 for row in range(n):
     cnt = 1
-    temp = arr[row][0]
-    for col in range(1, n):
+    for col in range(n):
+        if col == 0:
+            temp = arr[row][col]
+            continue
+
         if temp == arr[row][col]:
             cnt += 1
         else:
@@ -20,8 +23,11 @@ for row in range(n):
 
 for col in range(n):
     cnt = 1
-    temp = arr[0][col]
-    for row in range(1, n):
+    for row in range(n):
+        if row == 0:
+            temp = arr[row][col]
+            continue
+
         if temp == arr[row][col]:
             cnt += 1
         else:
