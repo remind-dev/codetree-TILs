@@ -12,13 +12,11 @@ def check():
         if string[i] == string[i - 1]:
             cnt += 1
         else:
-            length = string[i-1] + str(cnt)
+            length += string[i-1] + str(cnt)
+            cnt = 1
 
-    if cnt > 1:
-        length = string[i] + str(cnt)
-        return len(length)
-    else:
-        return len(length) + 2
+    length += string[-1] + str(cnt)
+    return len(length)
 
 
 MIN = 21
