@@ -4,9 +4,6 @@ shift_left = 1
 n, m ,q = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(n)]
 
-r, d = input().split()
-r = int(r)
-
 def shift(row, curr_dir):
     if curr_dir == shift_right:
         arr[row].insert(0, arr[row].pop())
@@ -41,6 +38,10 @@ def simulate(start_row, start_dir):
             break
                     
 for _ in range(q):
+    r, d = tuple(input().split())
+    r = int(r)
+    
+    # 조건에 맞춰 움직여봅니다
     simulate(r-1, shift_right if d == 'L' else shift_left)
 
 for row in range(n):
