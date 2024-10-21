@@ -1,75 +1,98 @@
-import sys  
-input = sys.stdin.readline  
-from copy import deepcopy  
+# 변수 선언 및 입력:
+n = int(input())
+grid = [
+    list(map(int, input().split()))
+    for _ in range(n)
+]
+next_grid = [
+    [0 for _ in range(n)]
+    for _ in range(n)
+]
+temp = [
+    [0 for _ in range(n)]
+    for _ in range(n)
+]
 
-# 폭탄 터트리기  
-def bomb(temp, si, sj):  
-    cnt = temp[si][sj]  
-    temp[si][sj] = 0  
-    # 가로의 경우 터진 곳 저장  
-    # 세로의 경우 가장 윗 칸과 가장 아랫 칸 저장    
-    width = []  
-    height = [(si, sj)]  
-    for d in range(4):  
-        ni, nj = si, sj  
-        now = cnt - 1  
-        while now and 0<=ni+di[d]<N and 0<=nj+dj[d]<N:  
-            ni += di[d]  
-            nj += dj[d]  
-            if d == 1 or d == 3:  
-                width.append((ni, nj))  
-            else:  
-                height.append((ni, nj))  
-            temp[ni][nj] = 0  
-            now -= 1  
 
-    gravity(temp, width, height)  
+def in_bomb_range(x, y, center_x, center_y, bomb_range):
+    return (x == center_x or y == center_y) and \
+           abs(x - center_x) + abs(y - center_y) < bomb_range
 
-# 중력 떨어트리기  
-def gravity(temp, width, height):  
-    # 가장 윗칸인 경우 width는 무시하고 진행  
-    if width and not width[0][0] == 0:  
-        for wi, wj in width:  
-            while wi - 1 >= 0:  
-                temp[wi][wj] = temp[wi-1][wj]  
-                temp[wi-1][wj] = 0  
-                wi -= 1  
-    # 가장 아랫 칸과 윗 칸을 변수에 할당 해주고  
-    # 가장 윗 칸 -1 => 옮겨야 되는 칸이 범위 내이고 현재 칸이 폭탄이 터진 경우 계속 옮겨준다.    
-    height.sort(reverse=True)  
-    if not height[-1][0] == 0:  
-        hi, hj, mi, mj = height[0][0], height[0][1], height[-1][0], height[-1][1]  
-        mi, mj = mi-1, mj  
-        while mi >= 0 and mi < N and temp[hi][hj] == 0:  
-            temp[hi][hj] = temp[mi][mj]  
-            temp[mi][mj] = 0  
-            hi -= 1  
-            mi -= 1  
-    check(temp)  
 
-def check(temp):  
-    global result  
-    cnt = 0  
-    for ti in range(N):  
-        for tj in range(N):  
-            if temp[ti][tj]:  
-                flag = temp[ti][tj]  
-                # 아래와 오른쪽만 체크해준다.  
-                for d in range(2):  
-                    nti, ntj = ti + di[d], tj + dj[d]  
-                    if 0<=nti<N and 0<=ntj<N:  
-                        if flag == temp[nti][ntj]:  
-                            cnt += 1  
-    if cnt > result:  
-        result = cnt  
+def bomb(center_x, center_y):
+    # Step1. next_grid 값을 0으로 초기화합니다.
+    for i in range(n):
+        for j in range(n):
+            next_grid[i][j] = 0
+    
+    # Step2. 폭탄이 터질 위치는 0으로 채워줍니다.
+    bomb_range = grid[center_x][center_y]
+    
+    for i in range(n):
+        for j in range(n):
+            if in_bomb_range(i, j, center_x, center_y, bomb_range):
+                grid[i][j] = 0
+	
+    # Step3. 폭탄이 터진 이후의 결과를 next_grid에 저장합니다.
+    for j in range(n):
+        next_row = n - 1
+        for i in range(n - 1, -1, -1):
+            if grid[i][j]:
+                next_grid[next_row][j] = grid[i][j]
+                next_row -= 1
+                
+    # Step4. grid로 다시 값을 옮겨줍니다.
+    for i in range(n):
+        for j in range(n):
+            grid[i][j] = next_grid[i][j]
 
-N = int(input())  
-arr = [list(map(int, input().split())) for _ in range(N)]  
-result = 0  
-di, dj = [1, 0, -1, 0], [0, 1, 0, -1]  
 
-for i in range(N):  
-    for j in range(N):  
-        temp = deepcopy(arr)  
-        bomb(temp, i, j)  
-print(result)
+def save_grid():
+    for i in range(n):
+        for j in range(n):
+            temp[i][j] = grid[i][j]
+
+
+def load_grid():
+    for i in range(n):
+        for j in range(n):
+            grid[i][j] = temp[i][j]
+
+
+def in_range(x, y):
+    return 0 <= x and x < n and 0 <= y and y < n
+
+
+def meet_the_condition(x, y, nx, ny):
+    return in_range(nx, ny) and grid[x][y] and grid[x][y] == grid[nx][ny]
+
+
+def calc():
+    max_pair = 0
+
+    for i in range(n):
+        for j in range(n-1):
+            if grid[i][j] and grid[i][j] == grid[i][j+1]:
+                max_pair += 1
+
+    for j in range(n):
+        for i in range(n-1):
+            if grid[i][j] and grid[i][j] == grid[i+1][j]:
+                max_pair += 1
+
+    return max_pair
+
+            
+
+ans = 0
+
+# 각 위치에 대해 진행해보고
+# 그 중 최대 만족 횟수를 구합니다.
+for i in range(n):
+    for j in range(n):
+        save_grid()
+        bomb(i, j)
+        ans = max(ans, calc())
+        load_grid()
+
+print(ans)
