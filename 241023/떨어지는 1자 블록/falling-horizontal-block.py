@@ -13,7 +13,10 @@ while True:
     flag = False
 
     if sum(arr[cur_row][k:end]) == 0:
-        cur_row += 1
+        if cur_row + 1 >= n:
+            arr[cur_row][k:end] = block
+        else:
+            cur_row += 1
     else:
         if cur_row == 0:
             flag = True
