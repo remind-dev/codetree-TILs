@@ -15,6 +15,7 @@ while True:
     if sum(arr[cur_row][k:end]) == 0:
         if cur_row + 1 >= n:
             arr[cur_row][k:end] = block
+            flag = True
         else:
             cur_row += 1
     else:
