@@ -33,7 +33,7 @@ for _ in range(k):
     for i in range(p):
         nx, ny = x + dx[dir_map[d]], y + dy[dir_map[d]]
 
-        if not in_range(nx, ny) and (nx, ny) in snake:
+        if not in_range(nx, ny) or (nx, ny) in snake:
             print(ans)
             sys.exit(0)
         else:
