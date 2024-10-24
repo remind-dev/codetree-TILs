@@ -22,8 +22,8 @@ def in_range(x, y):
     return 0 <= x < n and 0 <= y <n
 
 for _ in range(m):
-    x, y = map(int, input().split())
-    arr[x-1][y-1] = 1
+    r, c = map(int, input().split())
+    arr[r-1][c-1] = 1
 
 ans = 0
 for _ in range(k):
@@ -33,16 +33,22 @@ for _ in range(k):
     for i in range(p):
         nx, ny = x + dx[dir_map[d]], y + dy[dir_map[d]]
 
-        if not in_range(nx, ny) or (nx, ny) in snake:
+        if not in_range(nx, ny):
             print(ans)
             sys.exit(0)
         else:
-            ans += 1
-            snake.append((nx,ny))
-            if arr[nx][ny]:
+            if arr[nx][ny] == 1:
                 arr[nx][ny] = 0
             else:
                 snake.popleft()
+
+            if (nx, ny) in snake:
+                print(ans)
+                sys.exit(0)
+            else:
+                ans += 1
+                snake.append((nx,ny))
+
 
             x, y = nx, ny
         
