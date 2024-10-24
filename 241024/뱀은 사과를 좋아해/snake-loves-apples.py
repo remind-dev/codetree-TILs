@@ -31,6 +31,7 @@ for _ in range(k):
     p = int(p)
 
     for i in range(p):
+        ans += 1
         nx, ny = x + dx[dir_map[d]], y + dy[dir_map[d]]
 
         if not in_range(nx, ny):
@@ -46,7 +47,6 @@ for _ in range(k):
                 print(ans)
                 sys.exit(0)
             else:
-                ans += 1
                 snake.append((nx,ny))
 
 
