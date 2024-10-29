@@ -22,7 +22,7 @@ def find_max(x, y):
     dys = [0, 1, 1, 1, 0, -1, -1, -1]
 
     MAX = 0
-    max_x, max_y = 0, 0
+    max_x, max_y = -1, -1
 
     for dx, dy in zip(dxs, dys):
         nx, ny = x + dx, y + dy
@@ -32,8 +32,10 @@ def find_max(x, y):
                 MAX = mmax(grid[nx][ny])
                 max_x = nx
                 max_y = ny
-
-    return (max_x, max_y)
+    if max_x != -1 and max_y != -1:
+        return (max_x, max_y)
+    else:
+        return (x, y)
 
 for number in num:
     flag = False
