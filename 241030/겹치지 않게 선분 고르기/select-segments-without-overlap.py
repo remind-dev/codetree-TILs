@@ -10,7 +10,7 @@ def is_non_overlapping(selected_segments, new_segment):
     for x1, x2 in selected_segments:
         y1, y2 = new_segment
         # 겹치는지 확인: 끝점이 겹치거나 교차하면 겹침
-        if not (x2 <= y1 or y2 <= x1):
+        if not (x2 < y1 or y2 < x1):
             return False
     return True
 
@@ -23,6 +23,8 @@ def backtrack(index, selected_segments):
     if index == n:
         return
     
+    # 현재 선분을 포함하지 않는 경우
+    backtrack(index + 1, selected_segments)
     
     # 현재 선분을 포함하는 경우 (겹치지 않는다면)
     current_segment = segments[index]
