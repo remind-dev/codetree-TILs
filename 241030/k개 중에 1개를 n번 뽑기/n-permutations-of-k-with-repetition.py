@@ -1,20 +1,11 @@
 k, n = map(int, input().split())
 
-answer = []
-
-def print_permutation():
-    for num in answer:
-        print(num, end=' ')
-    print()
-
-def permutations(cnt):
+def permutations(cnt, current):
     if cnt == n:
-        print_permutation()
+        print(current)
         return
 
-    for i in range(1, k+1):
-        answer.append(i)
-        permutations(cnt+1)
-        answer.pop()
+    for i in range(1, k + 1):
+        permutations(cnt + 1, current + str(i) + ' ')
 
-permutations(0)
+permutations(0, "")
