@@ -23,9 +23,6 @@ def backtrack(index, selected_segments):
     if index == n:
         return
     
-    # 현재 선분을 포함하지 않는 경우
-    backtrack(index + 1, selected_segments)
-    
     # 현재 선분을 포함하는 경우 (겹치지 않는다면)
     current_segment = segments[index]
     if is_non_overlapping(selected_segments, current_segment):
