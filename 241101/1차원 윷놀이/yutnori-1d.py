@@ -7,7 +7,7 @@ hores = [0] * k
 def arrive():
     point = 0
     for dis in hores:
-        if dis >= m:
+        if dis >= m-1:
             point += 1
 
     return point
