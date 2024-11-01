@@ -22,10 +22,9 @@ def yutnori(cnt):
         return
 
     for i in range(k):
-        for dis in distance:
-            hores[i] += dis
-            yutnori(cnt + 1)
-            hores[i] -= dis
+        hores[i] += distance[cnt]
+        yutnori(cnt + 1)
+        hores[i] -= distance[cnt]
 
 
 yutnori(0)
