@@ -13,7 +13,7 @@ def backtrack(cnt):
         return
 
     for i in range(1, k+1):
-        if num and num[-1] == i and num[-2] == i:
+        if len(num) >= 2 and num[-1] == i and num[-2] == i:
             continue
         else:
             num.append(i)
