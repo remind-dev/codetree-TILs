@@ -13,7 +13,7 @@ def find_pos():
                 end = (i, j)
             elif grid[i][j].isdigit():
                 # 동전 번호를 첫 번째 요소로 추가
-                coins_pos.append((int(grid[i][j]), i, j))
+                coins_pos.append((grid[i][j], i, j))
 
     # 동전 번호 기준으로 정렬
     coins_pos.sort()
