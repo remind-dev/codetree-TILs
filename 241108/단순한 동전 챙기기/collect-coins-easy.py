@@ -53,4 +53,4 @@ start, end, coins_pos = find_pos()
 
 backtrack(0, 0)
 
-print(min_moves)
+print(min_moves if min_moves != float('inf') else -1)
