@@ -1,60 +1,56 @@
-import sys
-sys.setrecursionlimit(2000)
-
 n = int(input())
 grid = [list(input()) for _ in range(n)]
 
+
 def find_pos():
-    coins = []
+    coins_pos = []
+
     for i in range(n):
         for j in range(n):
             if grid[i][j] == 'S':
-                start = (i, j)
+                start = (i,j)
             elif grid[i][j] == 'E':
                 end = (i, j)
             elif grid[i][j].isdigit():
-                coins.append((i, j, int(grid[i][j])))
-    coins.sort(key=lambda x: x[2])
-    return start, end, coins
+                coins_pos.append((grid[i][j].isdigit(), i, j))
 
-def in_range(x, y):
-    return 0 <= x < n and 0 <= y < n
+    coins_pos.sort()
+
+    return start, end, coins_pos
 
 min_moves = float('inf')
-directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-visited = set()  # 방문한 위치와 상태 기록
+curr_coin_pos = []
 
-def dfs(x, y, collected_coins, moves, last_coin):
+def calc_move():
+    move = 0
+    _, x, y = curr_coin_pos[0]
+
+    for _, nx, ny in curr_coin_pos[1:]:
+        move += (abs(x - nx) + abs(y - ny))
+        x, y = nx, ny
+
+
+    move += (abs(x - end[0]) + abs(y - end[1]))
+
+    return move
+    
+
+def backtrack(cur_idx, cnt):
     global min_moves
-    
-    if (x, y) == end and len(collected_coins) >= 3:
-        min_moves = min(min_moves, moves)
+
+    if cur_idx == len(coins_pos):
+        if cnt >= 3:
+            min_moves = min(min_moves, calc_move())
         return
 
-    # 방문한 상태 기록 (위치와 마지막 수집한 동전 번호)
-    state = (x, y, last_coin)
-    if state in visited:
-        return
-    visited.add(state)
-    
-    for dx, dy in directions:
-        nx, ny = x + dx, y + dy
+    curr_coin_pos.append(coins_pos[cur_idx])
+    backtrack(cur_idx + 1, cnt + 1)
+    curr_coin_pos.pop()
 
-        if in_range(nx, ny):
-            cell = grid[nx][ny]
+    backtrack(cur_idx + 1, cnt)
 
-            if cell.isdigit():
-                coin_number = int(cell)
-                if coin_number > last_coin:
-                    dfs(nx, ny, collected_coins + [coin_number], moves + 1, coin_number)
-            elif cell == '.' or cell == 'E':
-                dfs(nx, ny, collected_coins, moves + 1, last_coin)
+start, end, coins_pos = find_pos()
 
-    # DFS 백트래킹 단계에서 방문 기록 제거
-    visited.remove(state)
+backtrack(0, 0)
 
-start, end, coins = find_pos()
-dfs(start[0], start[1], [], 0, 0)
-
-# 결과 출력
-print(min_moves if min_moves != float('inf') else -1)
+print(min_moves+1)
