@@ -23,9 +23,9 @@ curr_coin_pos = []
 
 def calc_move():
     move = 0
-    _, x, y = curr_coin_pos[0]
+    x, y = start
 
-    for _, nx, ny in curr_coin_pos[1:]:
+    for _, nx, ny in curr_coin_pos:
         move += (abs(x - nx) + abs(y - ny))
         x, y = nx, ny
 
@@ -53,4 +53,4 @@ start, end, coins_pos = find_pos()
 
 backtrack(0, 0)
 
-print(min_moves+1)
+print(min_moves)
